@@ -3,8 +3,7 @@ import './inputStyle.css'
 import axios from 'axios'
 import Result from '../Result/Result'
 const Inputs = () => {
-    const [sum, setSum] = useState([])
-    const [carry, setCarry] = useState([])
+    const [result, setresult] = useState([])
     const [input, setInput] = useState({
         fno: 0,
         sno: 0,
@@ -20,9 +19,8 @@ const Inputs = () => {
             headers: {
                 'Content-Type': 'application/json'
             }
-        }).then( result => {
-            setSum(result.data.sumString)
-            setCarry(result.data.carryString)
+        }).then( res => {
+            setresult(res.data.output)
         })
     }
     return (
@@ -37,7 +35,7 @@ const Inputs = () => {
                 <button onClick={submit}>Generate Steps</button>
             </div>
             {
-                sum.length === 0 ? null : <Result sum={sum} carry={carry}/>
+                result.length === 0 ? null : <Result result={result}/>
             }
         </div>
     )

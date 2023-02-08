@@ -4,39 +4,34 @@ const router = express();
 
 router.post('/api/step-addition', (req, res) => {
     try {
-        console.log('body', req.body);
         const { fno, sno } = req.body;
-        // .......................................................
         let carry = 0;
         let result = [];
         let carryResult = [];
-        let sumString = [];
-        let carryString = [];
+        let output = [];
 
         const toDigits = num => num.toString().split('').map(Number).reverse();
-        const A = toDigits(fno);
-        const B = toDigits(sno);
 
-        for (let i = 0; i < Math.max(A.length, B.length); i++) {
-            let sum = (A[i] || 0) + (B[i] || 0) + carry
-            result.push(sum > 9 ? sum % 10 : sum)
-            sumString.push(result.slice().reverse().join(''));
+        const num1 = toDigits(fno);
+        const num2 = toDigits(sno);
+
+        for (let i = 0; i < Math.max(num1.length, num2.length); i++) {
+            let sum = (num1[i] || 0) + (num2[i] || 0) + carry;
+            result.push(sum > 9 ? sum % 10 : sum);
             carry = Math.floor(sum / 10);
-            if (i !== Math.max(A.length, B.length) - 1) {
-                console.log('t', carryResult)
+            if (i !== Math.max(num1.length, num2.length) - 1) {
                 carryResult.push(carry);
             }
-            carryString.push(carryResult.slice().reverse().join(''))
+            output.push(`"step ${i + 1}" : { "carryString" : "${carryResult.slice().reverse().join('')}_", "sumString":"${result.slice().reverse().join('')}"}`);
         }
 
         if (carry) {
-            sumString[sumString.length - 1] = carry.toString() + sumString[sumString.length - 1]
+            output[output.length - 1] =  `"step ${output.length}" : { "carryString" : "${carryResult.slice().reverse().join('')}_", "sumString":"${carry.toString() + result.slice().reverse().join('')}"}`
         }
-        console.log(sumString, carryString);
-        // ........................................................
-        return res.status(200).send({ sumString, carryString })
+        return res.status(200).send({ output });
+
     } catch (error) {
-        return res.status(500)
+        return res.status(500).send({ message: "Some error occured" })
     }
 })
 

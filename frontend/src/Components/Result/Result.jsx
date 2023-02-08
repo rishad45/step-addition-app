@@ -1,11 +1,11 @@
 import './result.css'
 
-const Result = ({sum, carry}) => {
+const Result = ({result}) => {
   return (
     <div className='result'>
         {
-            sum.map((s, i) => {
-                return <p> "step {i + 1}" : carry string is " {carry[i]}_" and sum string is " {s} "</p>
+            result.map((item, i) => {
+                return <p key={i}>{item} ,</p>
             })
         }
     </div>
