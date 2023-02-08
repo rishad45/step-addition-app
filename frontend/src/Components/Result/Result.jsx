@@ -5,7 +5,7 @@ const Result = ({sum, carry}) => {
     <div className='result'>
         {
             sum.map((s, i) => {
-                return <p> 'step {i + 1} ' :  sum string is " {s} " and carry string is " {carry[i]}_"</p>
+                return <p> "step {i + 1}" : carry string is " {carry[i]}_" and sum string is " {s} "</p>
             })
         }
     </div>

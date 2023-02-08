@@ -9,4 +9,5 @@
 
 .navbar .heading{
     margin: 0 2rem;
+    cursor: default;
 }
