@@ -5,7 +5,7 @@ const router = express();
 router.post('/api/step-addition', (req,res) => {
     try {
         console.log('body', req.body);
-        const { firstNumber, secondNumber} = req.body;
+        const { fno, sno} = req.body;
         // .......................................................
         let carry = 0;
         let result = [];
@@ -13,8 +13,9 @@ router.post('/api/step-addition', (req,res) => {
         let sumString = [];
         let carryString = [];
 
-        let A = firstNumber.toString().split('').map(Number).reverse();
-        let B = secondNumber.toString().split('').map(Number).reverse();
+        const toDigits = num => num.toString().split('').map(Number).reverse();
+        const A = toDigits(fno);
+        const B = toDigits(sno);
 
         for(let i=0; i < Math.max(A.length, B.length); i++) {
             let sum = (A[i] || 0) + (B[i] || 0) + carry
@@ -23,6 +24,9 @@ router.post('/api/step-addition', (req,res) => {
             carry = Math.floor(sum / 10);
             carryResult.push(carry);
             carryString.push(carryResult.slice().reverse().join(''))
+        }
+        if(carry) {
+            sumString[sumString.length - 1] = carry.toString() + sumString[sumString.length - 1]
         }
         console.log(sumString, carryString);
         // ........................................................
