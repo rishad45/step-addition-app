@@ -5,11 +5,20 @@ const router = express();
 router.post('/api/step-addition', (req, res) => {
     try {
         const { fno, sno } = req.body;
+        const isPositiveNumber = num => {
+            const regex = /^[1-9]\d*$/;
+            return regex.test(num);
+        }
+
         let carry = 0;
         let result = [];
         let carryResult = [];
         let output = [];
 
+        if (!isPositiveNumber(fno) || !isPositiveNumber(sno)) {
+            console.log(1)
+            return res.status(403).send({ message: 'Please enter a valid number, only use positive Integers.' })
+        }
         const toDigits = num => num.toString().split('').map(Number).reverse();
 
         const num1 = toDigits(fno);
@@ -26,7 +35,7 @@ router.post('/api/step-addition', (req, res) => {
         }
 
         if (carry) {
-            output[output.length - 1] =  `"step ${output.length}" : { "carryString" : "${carryResult.slice().reverse().join('')}_", "sumString":"${carry.toString() + result.slice().reverse().join('')}"}`
+            output[output.length - 1] = `"step ${output.length}" : { "carryString" : "${carryResult.slice().reverse().join('')}_", "sumString":"${carry.toString() + result.slice().reverse().join('')}"}`
         }
         return res.status(200).send({ output });
 
