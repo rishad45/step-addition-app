@@ -1,0 +1,23 @@
+.inputs {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.inputs input{
+    width: 15rem;
+    border-radius: 3px;
+    height: 2rem;
+}
+
+.inputs div{
+    margin: 1rem 0;
+}
+
+.inputs button {
+    padding: 3px;
+    width: 10rem;
+    border: none;
+    border-radius: 3px;
+}

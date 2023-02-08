@@ -1,0 +1,12 @@
+.navbar{
+    width: 100%;
+    height: 8vh;
+    background-color: aliceblue;
+    display: flex;
+    align-items: center;
+    /* padding: 5px; */
+}
+
+.navbar .heading{
+    margin: 0 2rem;
+}
